@@ -1,3 +1,5 @@
+let humanScore = 0; 
+let computerScore = 0;
 
 function getComputerChoice(){
     let randomNum = Math.floor(Math.random() * 3);
@@ -5,7 +7,6 @@ function getComputerChoice(){
     if (randomNum === 0) computerChoice = "rock";
     else if(randomNum === 1) computerChoice = "paper";
     else computerChoice = "scissors";
-    // console.log(computerChoice);
 
     return computerChoice;
 }
@@ -13,19 +14,12 @@ function getComputerChoice(){
 function getHumanChoice(){
     let humanChoice = window.prompt("Enter your choice broski");
 
-    // console.log(humanChoice);
     return humanChoice;
 }
 
-let humanChoice = getHumanChoice();
-let computerChoice = getComputerChoice();
-
-let humanScore = 0; 
-let computerScore = 0;
-
-function playRound(humanChoice, computerChoice){
+function playRound(humanChoice, computerChoice, roundNum){
+    console.log(`Round ${roundNum}`);
     humanChoice = humanChoice.toLowerCase();
-    // console.log(humanChoice);
 
     if(humanChoice === "rock" && computerChoice === "scissors"){
         console.log(`You threw a ${humanChoice}\nComputer there a ${computerChoice}\n`);
@@ -76,4 +70,20 @@ function playRound(humanChoice, computerChoice){
     }
 }
 
-playRound(humanChoice, computerChoice);
+function playGame(){
+    for(let i = 0; i<5; i++){
+        let humanChoice = getHumanChoice();
+        let computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice, i+1);
+        console.log();
+    }
+
+    if(humanScore > computerScore){
+        console.log("Damn you actually beat the computer");
+    }
+    else{
+        console.log("LOLOLOL you lost against the computer")
+    }
+}
+
+playGame();
