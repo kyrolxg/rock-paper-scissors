@@ -1,6 +1,8 @@
+// intialized the score variables globally
 let humanScore = 0; 
 let computerScore = 0;
 
+// randomly generates a choice for the "computer"
 function getComputerChoice(){
     let randomNum = Math.floor(Math.random() * 3);
     let computerChoice = "";
@@ -11,12 +13,14 @@ function getComputerChoice(){
     return computerChoice;
 }
 
+// takes in user input using the prompt window
 function getHumanChoice(){
     let humanChoice = window.prompt("Enter your choice broski");
 
     return humanChoice;
 }
 
+// function which simulates a single round
 function playRound(humanChoice, computerChoice, roundNum){
     console.log(`Round ${roundNum}`);
     humanChoice = humanChoice.toLowerCase();
@@ -70,6 +74,7 @@ function playRound(humanChoice, computerChoice, roundNum){
     }
 }
 
+// function which plays the game for 5 rounds
 function playGame(){
     for(let i = 0; i<5; i++){
         let humanChoice = getHumanChoice();
