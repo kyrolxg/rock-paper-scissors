@@ -25,43 +25,22 @@ function playRound(humanChoice, computerChoice, roundNum){
     console.log(`Round ${roundNum}`);
     humanChoice = humanChoice.toLowerCase();
 
-    if(humanChoice === "rock" && computerChoice === "scissors"){
+    if(
+        (humanChoice === "rock"&&computerChoice === "scissors") || 
+        (humanChoice === "paper"&&computerChoice === "rock") ||
+        (humanChoice === "scissors"&&computerChoice === "paper")
+    ){
         console.log(`You threw a ${humanChoice}\nComputer there a ${computerChoice}\n`);
         console.log("Yayy you win this one\n");
         humanScore++;
         console.log(`-------Current Scores-------\nYou: ${humanScore}\nComputer: ${computerScore}\n`);
     }
 
-    else if (humanChoice === "rock" && computerChoice === "paper"){
-        console.log(`You threw a ${humanChoice}\nComputer there a ${computerChoice}\n`);
-        console.log("Ha lol you lost this one\n");
-        computerScore++;
-        console.log(`-------Current Scores-------\nYou: ${humanScore}\nComputer: ${computerScore}\n`);
-
-    }
-
-    else if (humanChoice === "paper" && computerChoice === "rock"){
-        console.log(`You threw a ${humanChoice}\nComputer there a ${computerChoice}\n`);
-        console.log("Yayy you win this one\n");
-        computerScore++;
-        console.log(`-------Current Scores-------\nYou: ${humanScore}\nComputer: ${computerScore}\n`);
-    }
-
-    else if (humanChoice === "paper" && computerChoice === "scissors"){
-        console.log(`You threw a ${humanChoice}\nComputer there a ${computerChoice}\n`);
-        console.log("Ha lol you lost this one\n");
-        computerScore++;
-        console.log(`-------Current Scores-------\nYou: ${humanScore}\nComputer: ${computerScore}\n`);
-    }
-
-    else if (humanChoice === "scissors" && computerChoice === "paper"){
-        console.log(`You threw a ${humanChoice}\nComputer there a ${computerChoice}\n`);
-        console.log("Yayy you win this one\n");
-        computerScore++;
-        console.log(`-------Current Scores-------\nYou: ${humanScore}\nComputer: ${computerScore}\n`);
-    }
-
-    else if (humanChoice === "scissors" && computerChoice === "rock"){
+    else if (
+        (humanChoice === "rock" && computerChoice === "scissors") ||
+        (humanChoice === "paper" && computerChoice === "rock") ||
+        (humanChoice === "scissors" && computerChoice === "paper")
+    ){
         console.log(`You threw a ${humanChoice}\nComputer there a ${computerChoice}\n`);
         console.log("Ha lol you lost this one\n");
         computerScore++;
