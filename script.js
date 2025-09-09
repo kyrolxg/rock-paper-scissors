@@ -8,3 +8,10 @@ function getComputerChoice(){
 
     return computerChoice;
 }
+
+function getHumanChoice(){
+    let humanChoice = window.prompt("Enter your choice broski");
+
+    console.log(humanChoice);
+    return humanChoice;
+}
