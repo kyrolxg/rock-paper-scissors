@@ -1,6 +1,13 @@
 // intialized the score variables globally
 let humanScore = 0; 
 let computerScore = 0;
+let gameEnd = false;
+
+// dom elements
+const rockBtn = document.querySelector("#rock");
+const scissorsBtn = document.querySelector("#scissors");
+const paperBtn = document.querySelector("#paper");
+const resultsDiv = document.querySelector("#results");
 
 // randomly generates a choice for the "computer"
 function getComputerChoice(){
@@ -13,21 +20,14 @@ function getComputerChoice(){
     return computerChoice;
 }
 
-// takes in user input using the prompt window
-function getHumanChoice(){
-    let humanChoice = window.prompt("Enter your choice broski");
-
-    return humanChoice;
-}
-
 // function which simulates a single round
-function playRound(humanChoice, computerChoice, roundNum){
-    console.log(`Round ${roundNum}`);
+function playRound(humanChoice, computerChoice){
     humanChoice = humanChoice.toLowerCase();
 
+    let message = "";
+
     if(humanChoice === computerChoice){
-        console.log("Bruh it is a tie.");
-        console.log(`-------Current Scores-------\nYou: ${humanScore}\nComputer: ${computerScore}\n`);
+        message = `Welp, it is a TIE. You both chose ${humanChoice} ._.`;
     }
 
     else if (
@@ -35,35 +35,75 @@ function playRound(humanChoice, computerChoice, roundNum){
         (humanChoice === "paper" && computerChoice === "rock") ||
         (humanChoice === "scissors" && computerChoice === "paper")
     ){
-        console.log(`You threw a ${humanChoice}\nComputer there a ${computerChoice}\n`);
-        console.log("Yayy you win this one\n");
         humanScore++;
-        console.log(`-------Current Scores-------\nYou: ${humanScore}\nComputer: ${computerScore}\n`);
+        message = `YOU WIN! ${humanChoice} absolutely destroys ${computerChoice}`;
     }
 
     else{
-        console.log(`You threw a ${humanChoice}\nComputer there a ${computerChoice}\n`);
-        console.log("Ha lol you lost this one\n");
         computerScore++;
-        console.log(`-------Current Scores-------\nYou: ${humanScore}\nComputer: ${computerScore}\n`);
+        message = `Imagine LOSING to a computer... ${computerChoice} absolutely destroys ${humanChoice}`;
+    }
+
+    return {
+        message,
+        humanScore,
+        computerScore
+    };
+}
+
+// helper function to update UI
+function updateUI(message, humanScore, computerScore) {
+    resultsDiv.textContent = "";
+
+    const messageP = document.createElement("p");
+    messageP.textContent = message;
+
+    const scoreP = document.createElement("p");
+    scoreP.textContent = `Score -> YOU: ${humanScore} || COMPUTER: ${computerScore}`;
+
+    resultsDiv.appendChild(messageP);
+    resultsDiv.appendChild(scoreP);
+}
+
+function checkGameEnd() {
+    if (humanScore === 5) {
+        resultsDiv.textContent = "GAME OVER -> YOU WIN, GG";
+        disableButtons();
+        gameEnd = true;
+    }
+
+    else if (computerScore === 5) {
+        resultsDiv.textContent = "GAME OVER -> COMPUTER WINS, LOLLLL"
+        disableButtons();
+        gameEnd = true;
     }
 }
 
-// function which plays the game for 5 rounds
-function playGame(){
-    for(let i = 0; i<5; i++){
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-        playRound(humanChoice, computerChoice, i+1);
-        console.log();
-    }
+function disableButtons() {
+    rockBtn.disabled = true;
+    paperBtn.disabled = true;
+    scissorsBtn.disabled = true;
 
-    if(humanScore > computerScore){
-        console.log("Damn you actually beat the computer");
-    }
-    else{
-        console.log("LOLOLOL you lost against the computer")
-    }
 }
 
-playGame();
+// eventListeners
+rockBtn.addEventListener("click", () => {
+    if(gameEnd) return;
+    const result = playRound("Rock", getComputerChoice());
+    updateUI(result.message, result.humanScore, result.computerScore);
+    checkGameEnd();
+});
+
+scissorsBtn.addEventListener("click", () => {
+    if(gameEnd) return;
+    const result = playRound("Scissors", getComputerChoice());
+    updateUI(result.message, result.humanScore, result.computerScore);
+    checkGameEnd();
+});
+
+paperBtn.addEventListener("click", () => {
+    if(gameEnd) return;
+    const result = playRound("Paper", getComputerChoice());
+    updateUI(result.message, result.humanScore, result.computerScore);
+    checkGameEnd();
+});
